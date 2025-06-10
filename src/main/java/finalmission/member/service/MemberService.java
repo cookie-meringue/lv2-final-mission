@@ -27,9 +27,9 @@ public class MemberService {
         return memberRepository.findByEmailAndPassword(email, password);
     }
 
-    public void createWithRandomName(String email, String password) {
-        String name = nameGenerator.generate();
-        Member member = new Member(name, email, password);
+    public void createWithRandomName(final String email, final String password) {
+        final String name = nameGenerator.generate();
+        final Member member = new Member(name, email, password);
         save(member);
     }
 
@@ -39,6 +39,4 @@ public class MemberService {
         }
         return memberRepository.save(member);
     }
-
-
 }

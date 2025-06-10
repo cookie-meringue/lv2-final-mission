@@ -1,6 +1,7 @@
 package finalmission.member.service;
 
 import finalmission.auth.infrastructure.methodargument.MemberPrincipal;
+import finalmission.exception.domain.ConflictException;
 import finalmission.member.domain.Member;
 import finalmission.member.infrastructure.namegenerator.NameGenerator;
 import finalmission.member.repository.MemberRepository;
@@ -29,6 +30,15 @@ public class MemberService {
     public void createWithRandomName(String email, String password) {
         String name = nameGenerator.generate();
         Member member = new Member(name, email, password);
-        memberRepository.save(member);
+        save(member);
     }
+
+    private Member save(final Member member) {
+        if (memberRepository.existsByEmail(member.getEmail())) {
+            throw new ConflictException("이미 존재하는 이메일입니다.");
+        }
+        return memberRepository.save(member);
+    }
+
+
 }

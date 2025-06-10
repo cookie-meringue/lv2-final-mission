@@ -30,13 +30,21 @@ public class ReservationController {
             @RequestBody @Valid ReservationCreationRequest request,
             @AuthorizedMember MemberPrincipal memberPrincipal
     ) {
-        ReservationCreationResponse response = reservationServiceFacade.create(request, memberPrincipal);
+        final ReservationCreationResponse response = reservationServiceFacade.create(request, memberPrincipal);
         return ResponseEntity.created(URI.create("/reservations/" + response.id())).body(response);
     }
 
     @GetMapping
     public ResponseEntity<List<ReservationResponse>> findAll() {
-        List<ReservationResponse> response = reservationServiceFacade.findAll();
+        final List<ReservationResponse> response = reservationServiceFacade.findAll();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<ReservationResponse>> findMine(
+            @AuthorizedMember final MemberPrincipal memberPrincipal
+    ) {
+        final List<ReservationResponse> response = reservationServiceFacade.findByMemberPrincipal(memberPrincipal);
         return ResponseEntity.ok(response);
     }
 }

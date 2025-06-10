@@ -36,4 +36,8 @@ public class ReservationService {
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
+
+    public List<Reservation> findAllByMember(final Member member) {
+        return reservationRepository.findAllByMember(member);
+    }
 }

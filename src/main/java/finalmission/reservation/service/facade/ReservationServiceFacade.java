@@ -39,7 +39,6 @@ public class ReservationServiceFacade {
                 .orElseThrow(() -> new BadRequestException("존재하지 않는 시간입니다."));
         final Member member = memberService.findByPrincipal(memberPrincipal)
                 .orElseThrow(() -> new BadRequestException("존재하지 않는 사용자입니다."));
-
         final Reservation reservation = reservationService.create(
                 room,
                 request.date(),
@@ -52,6 +51,17 @@ public class ReservationServiceFacade {
 
     public List<ReservationResponse> findAll() {
         final List<Reservation> reservations = reservationService.findAll();
+
+        return reservations.stream()
+                .map(ReservationResponse::fromReservation)
+                .toList();
+    }
+
+    public List<ReservationResponse> findByMemberPrincipal(final MemberPrincipal memberPrincipal) {
+        final Member member = memberService.findByPrincipal(memberPrincipal)
+                .orElseThrow(() -> new BadRequestException("존재하지 않는 사용자입니다."));
+        final List<Reservation> reservations = reservationService.findAllByMember(member);
+
         return reservations.stream()
                 .map(ReservationResponse::fromReservation)
                 .toList();

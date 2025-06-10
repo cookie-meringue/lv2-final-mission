@@ -20,8 +20,6 @@ spring:
       ddl-auto: create-drop
     defer-datasource-initialization: true
 
-security:
-  jwt:
-    token:
-      secret-key: "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E="
-      expire-length: 3600000
+jwt:
+  secret-key: "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E="
+  validity-in-milliseconds: 3600000

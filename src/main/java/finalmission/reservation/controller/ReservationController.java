@@ -4,12 +4,15 @@ import finalmission.auth.infrastructure.methodargument.AuthorizedMember;
 import finalmission.auth.infrastructure.methodargument.MemberPrincipal;
 import finalmission.reservation.dto.request.ReservationCreationRequest;
 import finalmission.reservation.dto.response.ReservationCreationResponse;
+import finalmission.reservation.dto.response.ReservationResponse;
 import finalmission.reservation.service.facade.ReservationServiceFacade;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +32,11 @@ public class ReservationController {
     ) {
         ReservationCreationResponse response = reservationServiceFacade.create(request, memberPrincipal);
         return ResponseEntity.created(URI.create("/reservations/" + response.id())).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReservationResponse>> findAll() {
+        List<ReservationResponse> response = reservationServiceFacade.findAll();
+        return ResponseEntity.ok(response);
     }
 }

@@ -6,6 +6,7 @@ import finalmission.reservation.repository.ReservationRepository;
 import finalmission.room.domain.Room;
 import finalmission.time.domain.Time;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class ReservationService {
         );
 
         return reservationRepository.save(reservation);
+    }
+
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
     }
 }

@@ -7,11 +7,13 @@ import finalmission.member.service.MemberService;
 import finalmission.reservation.domain.Reservation;
 import finalmission.reservation.dto.request.ReservationCreationRequest;
 import finalmission.reservation.dto.response.ReservationCreationResponse;
+import finalmission.reservation.dto.response.ReservationResponse;
 import finalmission.reservation.service.ReservationService;
 import finalmission.room.domain.Room;
 import finalmission.room.service.RoomService;
 import finalmission.time.domain.Time;
 import finalmission.time.service.TimeService;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,12 @@ public class ReservationServiceFacade {
         );
 
         return ReservationCreationResponse.fromReservation(reservation);
+    }
+
+    public List<ReservationResponse> findAll() {
+        final List<Reservation> reservations = reservationService.findAll();
+        return reservations.stream()
+                .map(ReservationResponse::fromReservation)
+                .toList();
     }
 }

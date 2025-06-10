@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "room")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Room {
 
     @Id
@@ -24,6 +26,10 @@ public class Room {
     @NotNull
     @Column(name = "name")
     private String name;
+
+    public Room(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalTime;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "time")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Time {
 
     @Id
@@ -25,6 +27,10 @@ public class Time {
     @NotNull
     @Column(name = "start_at")
     private LocalTime startAt;
+
+    public Time(LocalTime startAt) {
+        this.startAt = startAt;
+    }
 
     @Override
     public String toString() {

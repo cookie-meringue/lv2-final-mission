@@ -69,6 +69,14 @@ public class Reservation {
         return this.member.equals(member);
     }
 
+    public void updateDate(final LocalDate date) {
+        this.date = date;
+    }
+
+    public void updateTime(final Time time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +

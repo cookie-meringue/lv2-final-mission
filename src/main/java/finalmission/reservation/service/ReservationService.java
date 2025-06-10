@@ -49,4 +49,8 @@ public class ReservationService {
     public void delete(final Reservation reservation) {
         reservationRepository.delete(reservation);
     }
+
+    public boolean existsByRoomAndDateAndTime(final Room room, final LocalDate date, final Time time) {
+        return reservationRepository.existsByRoomAndDateAndTime(room, date, time);
+    }
 }

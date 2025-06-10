@@ -65,6 +65,10 @@ public class Reservation {
         return new Reservation(room, date, time, member);
     }
 
+    public boolean isReservedBy(final Member member) {
+        return this.member.equals(member);
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +

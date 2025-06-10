@@ -2,6 +2,7 @@ package finalmission.reservation.service.facade;
 
 import finalmission.auth.infrastructure.methodargument.MemberPrincipal;
 import finalmission.exception.domain.BadRequestException;
+import finalmission.exception.domain.ForbiddenException;
 import finalmission.member.domain.Member;
 import finalmission.member.service.MemberService;
 import finalmission.reservation.domain.Reservation;
@@ -65,5 +66,18 @@ public class ReservationServiceFacade {
         return reservations.stream()
                 .map(ReservationResponse::fromReservation)
                 .toList();
+    }
+
+    public void delete(final Long id, final MemberPrincipal memberPrincipal) {
+        final Member member = memberService.findByPrincipal(memberPrincipal)
+                .orElseThrow(() -> new BadRequestException("존재하지 않는 사용자입니다."));
+        final Reservation reservation = reservationService.findById(id)
+                .orElseThrow(() -> new BadRequestException("존재하지 않는 예약입니다."));
+
+        if (!reservation.isReservedBy(member)) {
+            throw new ForbiddenException("권한이 없습니다.");
+        }
+
+        reservationService.delete(reservation);
     }
 }

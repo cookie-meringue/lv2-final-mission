@@ -13,7 +13,7 @@ public class AuthService {
 
     private final AuthorizationProvider authorizationProvider;
 
-    public AuthorizationPrincipal createMemberPrincipal(Member member) {
+    public AuthorizationPrincipal createMemberPrincipal(final Member member) {
         return authorizationProvider.createPrincipal(AuthorizationPayload.fromMember(member));
     }
 }

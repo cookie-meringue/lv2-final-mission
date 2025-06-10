@@ -23,3 +23,7 @@ spring:
 jwt:
   secret-key: "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E="
   validity-in-milliseconds: 3600000
+
+api:
+  randommer:
+    api-key: bd7de2187f414b49aef04634c990fb9c

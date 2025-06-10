@@ -28,7 +28,7 @@ public class AuthServiceFacade {
 
     @Transactional(readOnly = true)
     public AuthorizationPrincipal createAuthorizationPrincipal(LoginRequest request) {
-        Member member = memberService.findByEmailAndPassword(request.email(), request.password())
+        final Member member = memberService.findByEmailAndPassword(request.email(), request.password())
                 .orElseThrow(() -> new UnauthorizedException("이메일 혹은 비밀번호가 일치하지 않습니다."));
 
         return authService.createMemberPrincipal(member);

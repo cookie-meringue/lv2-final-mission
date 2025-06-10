@@ -1,6 +1,8 @@
 package finalmission.member.service;
 
+import finalmission.auth.infrastructure.methodargument.MemberPrincipal;
 import finalmission.member.domain.Member;
+import finalmission.member.infrastructure.namegenerator.NameGenerator;
 import finalmission.member.repository.MemberRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,11 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final NameGenerator nameGenerator;
+
+    public Optional<Member> findByPrincipal(final MemberPrincipal principal) {
+        return memberRepository.findByEmail(principal.email());
+    }
 
     public Optional<Member> findByEmailAndPassword(
             final String email,
@@ -20,8 +27,7 @@ public class MemberService {
     }
 
     public void createWithRandomName(String email, String password) {
-        // 추후 랜덤 이름 생성 기능 구현 후 변경 예정
-        String name = "test";
+        String name = nameGenerator.generate();
         Member member = new Member(name, email, password);
         memberRepository.save(member);
     }

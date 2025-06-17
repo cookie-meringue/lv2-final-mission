@@ -19,7 +19,7 @@ public class ApiBaseNameGenerator implements NameGenerator {
 
     @Override
     public String generate() {
-        final String name = Objects.requireNonNull(apiBaseNameGeneratorRestClient
+        return Objects.requireNonNull(apiBaseNameGeneratorRestClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("")
                         .queryParam("nameType", NAME_TYPE)
@@ -28,6 +28,5 @@ public class ApiBaseNameGenerator implements NameGenerator {
                 )
                 .retrieve()
                 .body(String[].class))[0];
-        return name;
     }
 }

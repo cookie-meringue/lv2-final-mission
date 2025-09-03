@@ -1,29 +1,27 @@
 spring:
-  application:
-    name: lv2-final-mission
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  config:
+    activate:
+      on-profile: local
 
   datasource:
-    url: jdbc:h2:mem:database
-    username: sa
-    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: ${DDL_AUTO}
     properties:
       hibernate:
         format_sql: true
-    hibernate:
-      ddl-auto: create-drop
-    defer-datasource-initialization: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
 jwt:
-  secret-key: "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E="
+  secret-key: ${JWT_SECRET_KEY}
   validity-in-milliseconds: 3600000
 
 api:
   randommer:
-    api-key: bd7de2187f414b49aef04634c990fb9c
+    api-key: ${RANDOMMER_API_KEY}

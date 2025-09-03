@@ -18,6 +18,12 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 jwt:
   secret-key: ${JWT_SECRET_KEY}
   validity-in-milliseconds: 3600000

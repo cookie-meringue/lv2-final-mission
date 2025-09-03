@@ -9,42 +9,45 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record ReservationCreationResponse(
-        Long id,
-        RoomResponse room,
-        LocalDate date,
-        TimeResponse time,
-        MemberResponse member
+    Long id,
+    RoomResponse room,
+    LocalDate date,
+    TimeResponse time,
+    MemberResponse member
 ) {
 
     public static ReservationCreationResponse fromReservation(final Reservation reservation) {
         return new ReservationCreationResponse(
-                reservation.getId(),
-                RoomResponse.fromRoom(reservation.getRoom()),
-                reservation.getDate(),
-                TimeResponse.fromTime(reservation.getTime()),
-                MemberResponse.fromMember(reservation.getMember())
+            reservation.getId(),
+            RoomResponse.fromRoom(reservation.getRoom()),
+            reservation.getDate(),
+            TimeResponse.fromTime(reservation.getTime()),
+            MemberResponse.fromMember(reservation.getMember())
         );
     }
 
     public record RoomResponse(
-            String name
+        String name
     ) {
+
         public static RoomResponse fromRoom(final Room room) {
             return new RoomResponse(room.getName());
         }
     }
 
     public record TimeResponse(
-            @JsonFormat(pattern = "HH:mm") LocalTime startAt
+        @JsonFormat(pattern = "HH:mm") LocalTime startAt
     ) {
+
         public static TimeResponse fromTime(final Time time) {
             return new TimeResponse(time.getStartAt());
         }
     }
 
     public record MemberResponse(
-            String name
+        String name
     ) {
+
         public static MemberResponse fromMember(final Member member) {
             return new MemberResponse(member.getName());
         }
